@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
     <%= link_to "Railsgram", root_path, class: "navbar-brand" %>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,22 +12,21 @@
       </ul>
 
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <%= link_to "Login", root_path, class: "nav-link" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "Sign Up", root_path, class: "nav-link" %>
-        </li>
-
-        <li class="nav-item">
-          <%= link_to "Upload", root_path, class: "nav-link" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "@Reid", root_path, class: "nav-link" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "Sign out", root_path, class: "nav-link" %>
-        </li>
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to current_user.username, root_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "nav-link" %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "Login", new_user_session_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Sign Up", new_user_registration_path, class: "nav-link" %>
+          </li>
+        <% end %>
       </ul>
     </div>
   </div>
